@@ -1,3 +1,5 @@
+#super user - aryan
+#password - aryan
 """
 Django settings for messmate project.
 
