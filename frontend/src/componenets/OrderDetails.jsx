@@ -1,6 +1,6 @@
 import { useState } from "react";
 import starIcon from "../assets/Star.png";
-// import { AiFillStar } from "react-icons/ai";
+import { AiFillStar } from "react-icons/ai";
 
 const foodItems = [
   {
@@ -154,7 +154,7 @@ const OrderDetails = ({closeModal}) => {
                 }}
               >
                 <span>
-                  <AiFillStar />
+                  <AiFillStar />  
                 </span>
               </button>
             );

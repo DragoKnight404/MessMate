@@ -7,6 +7,7 @@ from django.db.models import Sum
 
 
 
+
 # UserProfile Table
 class UserProfile(models.Model):
     USER_ROLE_CHOICES = [
