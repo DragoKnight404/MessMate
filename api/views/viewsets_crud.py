@@ -26,12 +26,29 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models import Sum
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 
 
 class UserRegistrationViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
-    permission_classes = [AllowAny]  # Allow any user to register
+    # permission_classes = [AllowAny]  # Allow any user to register
+
+    
+    def get_permissions(self):
+        # Default to AllowAny (anyone can view)
+        if self.action == 'retrieve' or self.action == 'list':
+            permission_classes = [AllowAny]
+        # Only authenticated users can create
+        elif self.action == 'create':
+            permission_classes = [AllowAny]
+        # Only mess staff can perform certain actions
+        elif self.action in ['update', 'partial_update', 'destroy']:
+            permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+        else:
+            permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]  # General fallback
+
+        return [permission() for permission in permission_classes]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -41,6 +58,7 @@ class UserRegistrationViewSet(viewsets.ModelViewSet):
             "user": UserProfileSerializer(user.userprofile).data,
             "message": "User created successfully."
         }, status=status.HTTP_201_CREATED)
+ 
 
 # UserProfile ViewSet
 class UserProfileViewSet(viewsets.ModelViewSet):

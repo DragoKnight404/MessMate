@@ -16,6 +16,7 @@ from .views.viewsets_crud import (
     InventoryPurchaseViewSet,
     RawMaterialToIngredientViewSet,
     BillViewSet,
+    UserRegistrationViewSet
 )
 from .views.analytics_views import *
 
@@ -39,6 +40,7 @@ router.register(r'ingredientrequirements', IngredientRequirementViewSet)
 router.register(r'inventorypurchases', InventoryPurchaseViewSet)
 router.register(r'rawmaterialtoingredients', RawMaterialToIngredientViewSet)
 router.register(r'bills', BillViewSet)
+router.register(r'userregistration', UserRegistrationViewSet)
 
 # Include router.urls in the main URL configuration
 urlpatterns = [
@@ -58,3 +60,5 @@ urlpatterns = [
     path('orders/custom-time-of-day-graph/', custom_graph_order_by_time_of_day, name='custom_graph_order_by_time_of_day'),  # New function
 
 ]
+
+# aj, aj1
